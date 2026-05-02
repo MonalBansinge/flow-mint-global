@@ -1,16 +1,14 @@
 import { Link } from "react-router-dom";
-import { Wallet, Twitter, Github, Linkedin } from "lucide-react";
+import { Twitter, Github, Linkedin } from "lucide-react";
+import logo from "@/assets/flowledger-logo.png";
 
 export const Footer = () => (
   <footer className="border-t border-border/50 mt-32">
     <div className="container mx-auto px-6 py-14">
       <div className="grid md:grid-cols-4 gap-10">
         <div>
-          <Link to="/" className="flex items-center gap-2 font-display font-bold text-lg">
-            <div className="w-8 h-8 rounded-lg bg-gradient-primary grid place-items-center">
-              <Wallet className="w-4 h-4 text-primary-foreground" />
-            </div>
-            FlowLedger
+          <Link to="/" className="flex items-center" aria-label="FlowLedger home">
+            <img src={logo} alt="FlowLedger logo" className="h-9 w-auto" />
           </Link>
           <p className="text-sm text-muted-foreground mt-3 max-w-xs">
             Get paid globally. Stay compliant locally.
