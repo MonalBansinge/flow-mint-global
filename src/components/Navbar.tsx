@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Wallet } from "lucide-react";
+import logo from "@/assets/flowledger-logo.png";
 
 export const Navbar = () => {
   const { pathname } = useLocation();
@@ -11,11 +11,8 @@ export const Navbar = () => {
     <header className="fixed top-0 inset-x-0 z-50">
       <div className="container mx-auto px-6 py-4">
         <nav className="glass-strong rounded-2xl px-5 py-3 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 font-display font-bold text-lg">
-            <div className="w-8 h-8 rounded-lg bg-gradient-primary grid place-items-center">
-              <Wallet className="w-4 h-4 text-primary-foreground" />
-            </div>
-            FlowLedger
+          <Link to="/" className="flex items-center" aria-label="FlowLedger home">
+            <img src={logo} alt="FlowLedger logo" className="h-9 w-auto" />
           </Link>
           <div className="hidden md:flex items-center gap-7 text-sm text-muted-foreground">
             <a href="#features" className="hover:text-foreground transition">Features</a>

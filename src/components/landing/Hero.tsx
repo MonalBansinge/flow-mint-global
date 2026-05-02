@@ -1,7 +1,7 @@
 import { ArrowRight, Sparkles, Globe2, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import heroImg from "@/assets/hero-dashboard.jpg";
+import heroImg from "@/assets/hero-dashboard.png";
 
 export const Hero = () => (
   <section className="relative pt-36 pb-24 overflow-hidden">
