@@ -110,7 +110,6 @@ const Overview = () => {
         </div>
       </div>
     </div>
-      </div>
 
       <div className="glass-strong rounded-2xl p-6">
         <div className="flex items-center gap-2 mb-4">
