@@ -1,9 +1,22 @@
-import { DollarSign, Wallet, FileWarning, ShieldAlert, Sparkles } from "lucide-react";
+import { DollarSign, Wallet, FileWarning, ShieldAlert, Sparkles, Users } from "lucide-react";
+import { useEffect, useState } from "react";
 import { StatCard, StatusBadge } from "@/components/dashboard/StatCard";
 import { mockPayments, mockAlerts, currencySymbol, revenueData, currencyDistribution } from "@/mock-data";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, AreaChart, Area, PieChart, Pie, Cell } from "recharts";
+import { supabase } from "@/integrations/supabase/client";
 
-const Overview = () => (
+interface SignupUser { id: string; name: string; email: string; created_at: string; }
+
+const Overview = () => {
+  const [users, setUsers] = useState<SignupUser[]>([]);
+
+  useEffect(() => {
+    supabase.from("users").select("*").order("created_at", { ascending: false }).then(({ data }) => {
+      if (data) setUsers(data as SignupUser[]);
+    });
+  }, []);
+
+  return (
   <div className="space-y-6">
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
       <StatCard label="Total revenue" value="$32,540" change={18} icon={<DollarSign className="w-5 h-5" />} accent />
