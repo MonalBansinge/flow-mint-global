@@ -1,9 +1,22 @@
-import { DollarSign, Wallet, FileWarning, ShieldAlert, Sparkles } from "lucide-react";
+import { DollarSign, Wallet, FileWarning, ShieldAlert, Sparkles, Users } from "lucide-react";
+import { useEffect, useState } from "react";
 import { StatCard, StatusBadge } from "@/components/dashboard/StatCard";
 import { mockPayments, mockAlerts, currencySymbol, revenueData, currencyDistribution } from "@/mock-data";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, AreaChart, Area, PieChart, Pie, Cell } from "recharts";
+import { supabase } from "@/integrations/supabase/client";
 
-const Overview = () => (
+interface SignupUser { id: string; name: string; email: string; created_at: string; }
+
+const Overview = () => {
+  const [users, setUsers] = useState<SignupUser[]>([]);
+
+  useEffect(() => {
+    supabase.from("users").select("*").order("created_at", { ascending: false }).then(({ data }) => {
+      if (data) setUsers(data as SignupUser[]);
+    });
+  }, []);
+
+  return (
   <div className="space-y-6">
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
       <StatCard label="Total revenue" value="$32,540" change={18} icon={<DollarSign className="w-5 h-5" />} accent />
@@ -97,7 +110,34 @@ const Overview = () => (
         </div>
       </div>
     </div>
-  </div>
-);
+
+      <div className="glass-strong rounded-2xl p-6">
+        <div className="flex items-center gap-2 mb-4">
+          <Users className="w-4 h-4 text-accent" />
+          <h3 className="font-display font-semibold">Recent signups</h3>
+          <span className="ml-auto text-xs text-muted-foreground">{users.length} total</span>
+        </div>
+        {users.length === 0 ? (
+          <div className="text-sm text-muted-foreground py-6 text-center">No signups yet.</div>
+        ) : (
+          <div className="space-y-2">
+            {users.map((u) => (
+              <div key={u.id} className="flex items-center justify-between p-3 rounded-xl bg-secondary/40 border border-border/40">
+                <div>
+                  <div className="text-sm font-medium">{u.name}</div>
+                  <div className="text-xs text-muted-foreground">{u.email}</div>
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  {new Date(u.created_at).toLocaleDateString()}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
 
 export default Overview;
+
