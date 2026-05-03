@@ -110,7 +110,35 @@ const Overview = () => {
         </div>
       </div>
     </div>
-  </div>
-);
+      </div>
+
+      <div className="glass-strong rounded-2xl p-6">
+        <div className="flex items-center gap-2 mb-4">
+          <Users className="w-4 h-4 text-accent" />
+          <h3 className="font-display font-semibold">Recent signups</h3>
+          <span className="ml-auto text-xs text-muted-foreground">{users.length} total</span>
+        </div>
+        {users.length === 0 ? (
+          <div className="text-sm text-muted-foreground py-6 text-center">No signups yet.</div>
+        ) : (
+          <div className="space-y-2">
+            {users.map((u) => (
+              <div key={u.id} className="flex items-center justify-between p-3 rounded-xl bg-secondary/40 border border-border/40">
+                <div>
+                  <div className="text-sm font-medium">{u.name}</div>
+                  <div className="text-xs text-muted-foreground">{u.email}</div>
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  {new Date(u.created_at).toLocaleDateString()}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
 
 export default Overview;
+
